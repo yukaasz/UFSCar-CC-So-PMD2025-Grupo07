@@ -38,7 +38,7 @@ Imagem 1: Fluxograma de como os dados transitarão pela aplicação.
 - `category` (categoria, finalidade)
 - `countInStock` (quantidade no estoque)
 
-  No entanto, o projeto em questão não fará uso de todos os atributos presentes no dataset. Logo, será realizada uma etapa de transformação de dados utilizando o Spark para selecionar apenas os atributos `drugName`, `manufacturer`, `description`, `price`, `sideEffects` e `category` do *dataset* do kaggle e, a partir desses atributos, criaremos o seguinte esquema no Neo4j. 
+  No entanto, o projeto em questão não fará uso de todos os atributos presentes no dataset. Logo, será realizada uma etapa de transformação de dados utilizando o Spark para selecionar apenas os atributos `drugName`, `manufacturer`, `description`, `price`, `sideEffects` e `category` do *dataset* do kaggle e, a partir desses atributos, criaremos o seguinte esquema no Neo4j: 
 
 Serão 4 tipos de nós: 
 - `manufacturer` (com os atributos `id` e `name`)
@@ -46,10 +46,10 @@ Serão 4 tipos de nós:
 - `sideEffects` (com os atributos `id`, `name`) 
 - `category` (com os atributos: `id` e `name`)
 
-E os relacionamentos serão:
-- `develops` (relacionamento entre `manufacturer` e `drug`)
-- `has_side_effect` (relacionamento entre `drug` e `sideEffects`)
-- `belongs_to` (relacionamento entre `drug` e `category`)
+E as arestas serão:
+- `develops` (aresta entre `manufacturer` e `drug`)
+- `has_side_effect` (aresta entre `drug` e `sideEffects`)
+- `belongs_to` (aresta entre `drug` e `category`)
 
 Com esses nós, um consumidor pode requisitar, por exemplo, uma consulta que retorne medicamentos úteis (ou relacionados) a pressão sanguínea (blood pressure), trazendo diversas opções de consumo.
 
