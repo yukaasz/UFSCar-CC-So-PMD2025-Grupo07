@@ -61,7 +61,7 @@ Apache Spark para extração e transformação, pois:
 - Possui escalabilidade e flexibilidade, pois o Apache Spark tem a capacidade de ler arquivos de vários formatos diferentes.
 
 Neo4j para a carga e as consultas, pois:
-- O modelo em grafos permite que consultas que utilizam relacionamentos possam ser processadas de forma direta sem depender - de junções complexas como em bancos de dados relacionais.
+- O modelo em grafos permite que consultas que utilizam relacionamentos possam ser processadas de forma direta sem depender de junções complexas como em bancos de dados relacionais.
 - É mais eficiente navegar entre relacionamentos em um modelo em grafos do que em bancos de dados relacionais.
 - Estrutura de dados flexível que permite a adição de novos nós como modo de consumo ou principal composto ativo de maneira simples, sem a necessidade de reestruturar todo o banco de dados.
 
