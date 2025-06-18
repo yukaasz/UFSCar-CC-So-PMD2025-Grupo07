@@ -63,10 +63,10 @@ Apache Spark para extração e transformação, pois:
 Neo4j para a carga e as consultas, pois:
 - O modelo em grafos permite que consultas que utilizam relacionamentos possam ser processadas de forma direta sem depender de junções complexas como em bancos de dados relacionais.
 - É mais eficiente navegar entre relacionamentos em um modelo em grafos do que em bancos de dados relacionais.
-- Estrutura de dados flexível que permite a adição de novos nós como modo de consumo ou principal composto ativo de maneira simples, sem a necessidade de reestruturar todo o banco de dados.
+- Possui estrutura de dados flexível que permite a adição de novos nós como modo de consumo ou principal composto ativo, por exemplo, sem a necessidade de reestruturar todo o banco de dados.
 
 ### Fonte de Dados
-Os dados do projeto vieram em um arquivo de formato json e foram retirados de um *dataset* do Kaggle disponível em: (https://www.kaggle.com/datasets/pritipoddar/inventory-data-for-pharmacy-website-in-json-format ). O arquivo `.json` foi carregado no Apache Spark onde fizemos as transformações necessárias para o projeto.
+Os dados do projeto foram retirados de um *dataset* do Kaggle disponível em: (https://www.kaggle.com/datasets/pritipoddar/inventory-data-for-pharmacy-website-in-json-format ). O arquivo `.json` disponibilizado pelo *dataset* foi carregado no Apache Spark onde fizemos as transformações necessárias para o projeto.
 
 
 
