@@ -6,7 +6,7 @@ Integrantes:
 - Daniella Yuka Hirosue - 813008
 - Renan Yugo Ueda - 813346
 
-## Fase Intermediária I – Planejamento: Definição da proposta
+## Fase Intermediária – Planejamento: Definição da proposta
 
 ### Resumo e Introdução:
 
