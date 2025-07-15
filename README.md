@@ -27,7 +27,7 @@ Diante desse cenário, torna-se interessante e necessário oferecer ao público 
   
 - dataset2: https://www.kaggle.com/datasets/shudhanshusingh/250k-medicines-usage-side-effects-and-substitutes
 
-Embora os dois datasets possuam atributos diversos, o projeto em questão não fará uso de todos eles. Logo, a dupla aplicará uma etapa de transformação utilizando o Spark para sintetizar e adaptar os dados em apenas um *dataset* com quatro atributos, sendo eles `drugName`, `manufacturer`, `sideEffects` e `conditions` (este último seria o sintoma que o remédio tratará).
+Embora os dois datasets possuam atributos diversos, o projeto em questão não fará uso de todos eles. Logo, a dupla aplicará uma etapa de transformação utilizando o Spark para sintetizar e adaptar os dados em apenas um *dataset* com quatro atributos, sendo eles `drugName`, `manufacturer`, `sideEffects` e `conditions` (este último seria o sintoma/doença/infecção que o remédio tratará).
 
 OBS: no dataset2, o campo `manufacturer` (fabricante) não está presente. 
 O grupo procurou outras bases de dados que possuíssem os mesmos atributos principais do projeto, mas não obtiveram sucesso. 
@@ -74,11 +74,11 @@ Neo4j para a carga e as consultas, pois:
 - Possui estrutura de dados flexível que permite a adição de novos nós como modo de consumo ou principal composto ativo, por exemplo, sem a necessidade de reestruturar todo o banco de dados.
 
 ### Ajustes da Etapa Anterior:
-- Remoção dos atributos ´price´ e ´description´:
+- Remoção dos atributos `price` e `description`:
     - O motivo dessas remoções se dá por conta da indisponibilidade de datasets com os mesmos atributos para realização de cruzamento.
-- Alteração do nome ´category´ para ´condition´, e ´belongs_to´ para ´treats´
+- Alteração do nome `category` para `condition`, e `belongs_to` para `treats`
 - Adição de um novo *dataset* para complementar o *dataset* inicial e aumentar a complexidade do projeto.
-- Mudança do Diagrama para acompanhar as alterações acima.
+- Mudança do Fluxograma (Imagem 1) para acompanhar as alterações acima.
 
 ### Desenvolvimento:
 A seguir serão apresentadas as ações tomadas pela dupla para realização do projeto.
@@ -93,11 +93,11 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
    
 - **Dados Duplicados**: Para esta verificação, basta analisarmos o nome do medicamento. Isso porque podem existir medicamentos com a mesma composição (não analisada em nosso projeto) e com a mesma finalidade.  
 
-- **Remodelar coluna `Uses` com uma lista de usos (as finalidades dos medicamentos)**: Separar a cadeia de caracteres em uma lista que conterá cada uso(finalidade) do medicamento. Isso será útil para passar os dados ao Neo4j posteriormente
+- **Remodelar coluna `Uses` com uma lista de usos (as finalidades dos medicamentos)**: Separar a cadeia de caracteres em uma lista que conterá cada uso (finalidade) do medicamento. Isso será útil para passar os dados ao Neo4j posteriormente
 
-- **Remodelar coluna de efeitos colaterais com uma lista de Side_effects**: o motivo é o mesmo que o item amterior.
+- **Remodelar coluna de efeitos colaterais com uma lista de `Side_effects`**: o motivo é o mesmo que o item amterior.
 
-**3) Tratamento individual do df2(dataset2)**:    
+**3) Tratamento individual do df2(*dataset2*)**:    
 
 - **Dados Duplicados**: Para esta verificação, basta analisarmos o nome do medicamento. Isso porque podem existir medicamentos com a mesma composição (não analisada em nosso projeto) e com a mesma finalidade.
 
@@ -107,11 +107,11 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 
 - **Remover Dados Nulos**: Analisamos se alguma coluna possui algum campo nulo.
 
-**4) Junção dos dois DataFrames**:  
+**4) Junção dos dois *dataframes***:  
 
-- **Adição da coluna `Manufacturer` em df2**: adição desta coluna para padronização de DataFrames. Os campos foram preenchidos com valores nulos
+- **Adição da coluna `Manufacturer` em df2**: adição desta coluna para padronização de *dataframes*. Os campos foram preenchidos com valores nulos.
 
-- **Renomear colunas de df2**: novamente, para padronizar os dados, e possibilitar um cruzamento de dados, mantemos nomes de colunas iguais para os dois DataFrames
+- **Renomear colunas de df2**: novamente, para padronizar os dados, e possibilitar um cruzamento de dados, mantemos nomes de colunas iguais para os dois *dataframes*.
 
 - **Remover medicamentos de df2 que já estão contidos em df1**: Mesmo que df1 tenha menos dados, ele terá prioridade já que contém os campos de `Manufacturer`. Aqui removeremos de df2 medicamentos já presentes em df1 para evitar duplicidade.
 
@@ -119,27 +119,27 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 
 **5) Verificações Finais antes da etapa de carga**:
 
-- **Remoção de Espaços**: Remoção de espaços antes e depois de cada string, em todos os campos de todas as colunas  
+- **Remoção de Espaços**: Remoção de espaços antes e depois de cada string, em todos os campos de todas as colunas.  
 
-- **Eliminar Duplicatas**: Verificar se existem medicamentos duplicados novamente
+- **Eliminar Duplicatas**: Verificar se existem medicamentos duplicados novamente.
 
-**6) Carga de dados Databricks para Neo4j** Preparação de nós e relacionamentos no próprio Pyspark para alimentarmos a base de dados diretamente para o Neo4j  
+**6) Carga de dados Databricks para Neo4j** Preparação de nós e relacionamentos no próprio Pyspark para alimentarmos a base de dados diretamente para o Neo4j.
 
 - **Renomeação de Colunas**: Redefinir os nomes das colunas para corretude do projeto, já que a partir deles criaremos nós e arestas.  
-**a) `Medicine Name` -> `Drug`**  
-**b) `Manufacturer` -> `Manufacturer`**  
-**c) `Side_Effects` -> `sideEffects`**
-**d) `Uses` -> `Conditions`**  
+  - `Medicine Name` -> `drug` 
+  - `Manufacturer` -> `manufacturer`  
+  - `Side_Effects` -> `sideEffect` 
+  - `Uses` -> `condition`  
 
-- **Atribuição de IDs**: para realizar a etapa de carga no Neo4j, precisamos atribuir um ID para cada nó do nosso banco de dados
+- **Atribuição de *IDs***: para realizar a etapa de carga no Neo4j, precisamos atribuir um *ID* para cada nó do nosso banco de dados.
 
-- **Criar dataframes separados apenas com id e nome de cada nó**: criamos os dataframes `df_drugs`, `df_condition`, `df_sideEffects` e `df_manufacturers` que contém apenas o id e nome de cada nó para utilizarmos posteriormente.
+- **Criar *dataframes* separados apenas com *id* e nome de cada nó**: criamos os dataframes `df_drugs`, `df_condition`, `df_sideEffects` e `df_manufacturers` que contém apenas o *id* e nome de cada nó para utilizarmos posteriormente.
 
 - **Criação do banco de dados no Neo4j Sandbox**
 
-- **Estabelecer a conexão entre o Databricks e o Neo4j**: realizamos a conexão entre o Databricks e o Neo4j utilizando a biblioteca `neo4j-contrib:neo4j-connector-apache-spark_2.12:4.0.1_for_spark_3`no cluster utilizado para executar o projeto.  
+- **Estabelecer a conexão entre o Databricks e o Neo4j**: realizamos a conexão entre o Databricks e o Neo4j utilizando a biblioteca `neo4j-contrib:neo4j-connector-apache-spark_2.12:4.0.1_for_spark_3` no cluster utilizado para executar o projeto.  
 
-- **Criar os nós no Neo4j**: Criamos os nós no Neo4j a partir dos dataframes criados no terceiro item desta seção.
+- **Criar os nós no Neo4j**: Criamos os nós no Neo4j a partir dos *dataframes* criados no terceiro item desta seção.
 
-- **Criação das arestas**: Com os nós criados, fizemos uma manipulação dos nossos dataframes para obter os ids dos nós de origem e destino da nossa arestas, e assim criarmos as arestas `DEVELOPS`, `HAS_SIDE_EFFECT` e `TREATS`.  
+- **Criação das arestas**: Com os nós criados, fizemos uma manipulação dos nossos *dataframes* para obter os *ids* dos nós de origem e destino da nossa arestas, e assim criarmos as arestas `DEVELOPS`, `HAS_SIDE_EFFECT` e `TREATS`.  
 
