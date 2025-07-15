@@ -11,7 +11,7 @@ Integrantes:
 ### Resumo e Introdução:
 
   O seguinte projeto será desenvolvido pelos membro Daniella e Renan, e tem como finalidade aplicar conceitos aprendidos durante as aulas de Processamento Massivos de Dados, tais como Apache Spark, Python, Manipulação e Transformação de Dados, Relacionamentos e Consultas em um Banco de Dados orientado a Grafos (Neo4j).
-Para isso, a dupla escolheu trabalhar o projeto sobre dois datasets de medicamentos, aplicando os conhecimentos acima referidos.
+Para isso, a dupla escolheu trabalhar o projeto sobre dois *datasets* de medicamentos, aplicando os conhecimentos acima referidos.
 Nos tópicos a seguir, elaboramos mais detalhes do trabalho em questão.
 
 ### Minimundo:
@@ -33,9 +33,10 @@ OBS: no dataset2, o campo `manufacturer` (fabricante) não está presente.
 O grupo procurou outras bases de dados que possuíssem os mesmos atributos principais do projeto, mas não obtiveram sucesso. 
 Ainda assim, mesmo que alguns medicamentos fiquem sem essa informação, a dupla considera o fabricante um atributo interessante para análise e, por esse motivo, decidimos manter em nosso projeto.
 
-A partir deste novo *dataset* formaremos os nós no Neo4j.
+A partir deste novo *dataset* formaremos os nós no Neo4j. Resultando no seguinte *schema*:
 
-<img width="1281" height="740" alt="image" src="https://github.com/user-attachments/assets/a81c4d7d-1ea4-4d0a-bd6d-7fd3a5ba608e" />
+<img width="981" height="440" alt="image" src="https://github.com/user-attachments/assets/a81c4d7d-1ea4-4d0a-bd6d-7fd3a5ba608e" />
+Imagem 1: Schema do Neo4j.
 
 Serão 4 tipos de nós: 
 - `Manufacturer` (com os atributos `id` e `name`)
@@ -49,7 +50,7 @@ E as arestas serão:
 - `TREATS` (aresta entre `drug` e `condition`)
 
 ![Web (4)](https://github.com/user-attachments/assets/e1fa67bc-b29a-4d4d-a967-da7c3ffae82d)
-Imagem 1: Fluxograma de como os dados transitarão pela aplicação.
+Imagem 2: Fluxograma de como os dados transitarão pela aplicação.
 
 ### Objetivos:
 
@@ -57,7 +58,7 @@ Imagem 1: Fluxograma de como os dados transitarão pela aplicação.
 Além disso, é possível que o usuário filtre os resultados com base em outros critérios como **fabricante** e **efeitos colaterais**, os quais podem ser evitados pelo consumidor.
 
 Alguns exemplos de consulta que o sistema oferece:
-  - Quais medicamentos tratam a pressão sanguínea(*blood pressure*)?
+  - Quais medicamentos tratam condições relacionadas à pressão sanguínea(*blood pressure*)?
   - Quais medicamentos são do mesmo fabricante?
   - Quais medicamentos possuem o efeito colateral “y”? 
 
@@ -78,7 +79,7 @@ Neo4j para a carga e as consultas, pois:
     - O motivo dessas remoções se dá por conta da indisponibilidade de datasets com os mesmos atributos para realização de cruzamento.
 - Alteração do nome `category` para `condition`, e `belongs_to` para `treats`
 - Adição de um novo *dataset* para complementar o *dataset* inicial e aumentar a complexidade do projeto.
-- Mudança do Fluxograma (Imagem 1) para acompanhar as alterações acima.
+- Mudança do Fluxograma (Imagem 2) para acompanhar as alterações acima.
 
 ### Desenvolvimento:
 A seguir serão apresentadas as ações tomadas pela dupla para realização do projeto.
@@ -146,20 +147,28 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 ### Consultas realizadas
 Após a etapa de carga dos dados para o Neo4j, pudemos realizar as consultas definidas na Seção Objetivos deste arquivo. A seguir, temos os *scripts* das consultas em Cypher que correspondem as consultas definidas anteriormente.
 
-  - Quais medicamentos tratam a pressão sanguínea(*blood pressure*)?
+  - Quais medicamentos tratam condições relacionadas à pressão sanguínea(*blood pressure*)?
     ```cypher
     MATCH (d:Drug)-[:TREATS]->(c:Condition)
     WHERE toLower(c.name_condition) CONTAINS "blood pressure"
     RETURN d.name_drug AS medicamento, c.name_condition AS condicao
-    
+  
+<img width="1318" height="461" alt="image" src="https://github.com/user-attachments/assets/6893068e-1cfd-4e4f-94c3-27e6ec0b214b" />
+
+
   - Quais medicamentos são do mesmo fabricante?
     ```cypher
     MATCH (m:Manufacturer)-[:DEVELOPS]->(d:Drug)
     WHERE m.name_manufacturer = "Pfizer Ltd"
     RETURN m.name_manufacturer AS fabricante, d.name_drug AS medicamento
+
+  <img width="1417" height="762" alt="image" src="https://github.com/user-attachments/assets/a783426c-7c8b-4b83-90fb-faae745cff89" />
+
     
   - Quais medicamentos possuem o efeito colateral “y”?
     ```cypher
     MATCH (d:Drug)-[h:HAS_SIDE_EFFECT]->(s:sideEffect)
     WHERE s.name_sideEffect = "Indigestion"
     RETURN d.name_drug AS medicamento, s.name_sideEffect AS efeito_colateral
+
+  <img width="1779" height="693" alt="image" src="https://github.com/user-attachments/assets/a8c56da1-f4ea-4e81-9a32-0def34fc2c8a" />
