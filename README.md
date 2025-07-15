@@ -57,9 +57,9 @@ Imagem 1: Fluxograma de como os dados transitarão pela aplicação.
 Além disso, é possível que o usuário filtre os resultados com base em outros critérios como **fabricante** e **efeitos colaterais**, os quais podem ser evitados pelo consumidor.
 
 Alguns exemplos de consulta que o sistema oferece:
-  - Quais medicamentos são relacionados à pressão sanguínea(*blood pressure*)?
+  - Quais medicamentos tratam a pressão sanguínea(*blood pressure*)?
   - Quais medicamentos são do mesmo fabricante?
-  - O medicamento “x” possui o efeito colateral “y”? 
+  - Quais medicamentos possuem o efeito colateral “y”? 
 
 ### Tecnologias:
 Para este projeto, as tecnologias escolhidas foram:
@@ -143,3 +143,23 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 
 - **Criação das arestas**: Com os nós criados, fizemos uma manipulação dos nossos *dataframes* para obter os *ids* dos nós de origem e destino da nossa arestas, e assim criarmos as arestas `DEVELOPS`, `HAS_SIDE_EFFECT` e `TREATS`.  
 
+### Consultas realizadas
+Após a etapa de carga dos dados para o Neo4j, pudemos realizar as consultas definidas na Seção Objetivos deste arquivo. A seguir, temos os *scripts* das consultas em Cypher que correspondem as consultas definidas anteriormente.
+
+  - Quais medicamentos tratam a pressão sanguínea(*blood pressure*)?
+    ```cypher
+    MATCH (d:Drug)-[:TREATS]->(c:Condition)
+    WHERE toLower(c.name_condition) CONTAINS "blood pressure"
+    RETURN d.name_drug AS medicamento, c.name_condition AS condicao
+    
+  - Quais medicamentos são do mesmo fabricante?
+    ```cypher
+    MATCH (m:Manufacturer)-[:DEVELOPS]->(d:Drug)
+    WHERE m.name_manufacturer = "Pfizer Ltd"
+    RETURN m.name_manufacturer AS fabricante, d.name_drug AS medicamento
+    
+  - Quais medicamentos possuem o efeito colateral “y”?
+    ```cypher
+    MATCH (d:Drug)-[h:HAS_SIDE_EFFECT]->(s:sideEffect)
+    WHERE s.name_sideEffect = "Indigestion"
+    RETURN d.name_drug AS medicamento, s.name_sideEffect AS efeito_colateral
