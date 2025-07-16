@@ -58,9 +58,10 @@ Imagem 2: Fluxograma de como os dados transitarão pela aplicação.
 Além disso, é possível que o usuário filtre os resultados com base em outros critérios como **fabricante** e **efeitos colaterais**, os quais podem ser evitados pelo consumidor.
 
 Alguns exemplos de consulta que o sistema oferece:
-  - Quais medicamentos tratam condições relacionadas à pressão sanguínea(*blood pressure*)?
+  - Quais medicamentos tratam condições relacionadas à uma condição "x"?
   - Quais medicamentos são do mesmo fabricante?
-  - Quais medicamentos possuem o efeito colateral “y”? 
+  - Quais medicamentos possuem o efeito colateral “y”?
+  - Quais fabricantes produzem medicamentos que causam um efeito colateral "y"?
 
 ### Tecnologias:
 Para este projeto, as tecnologias escolhidas foram:
@@ -179,10 +180,29 @@ Após a etapa de carga dos dados para o Neo4j, pudemos realizar as consultas def
   <img width="1417" height="762" alt="image" src="https://github.com/user-attachments/assets/a783426c-7c8b-4b83-90fb-faae745cff89" />
 
     
-  - Quais medicamentos possuem o efeito colateral “y”?
+  - Quais medicamentos possuem o efeito colateral indigestão?
     ```cypher
     MATCH (d:Drug)-[h:HAS_SIDE_EFFECT]->(s:sideEffect)
     WHERE s.name_sideEffect = "Indigestion"
     RETURN d.name_drug AS medicamento, s.name_sideEffect AS efeito_colateral
 
   <img width="1779" height="693" alt="image" src="https://github.com/user-attachments/assets/a8c56da1-f4ea-4e81-9a32-0def34fc2c8a" />
+
+  - Quais fabricantes produzem medicamentos que causam dor abdominal?
+    ```cypher
+    MATCH (m:Manufacturer)-[:DEVELOPS]->(d:Drug)-[h:HAS_SIDE_EFFECT]->(s:sideEffect)
+    WHERE s.name_sideEffect = "Abdominal pain" 
+    RETURN m.name_manufacturer AS fabricante, d.name_drug AS medicamento, s.name_sideEffect AS efeito_colateral
+  <img width="1835" height="695" alt="image" src="https://github.com/user-attachments/assets/99275321-b00c-49b6-ae99-10e1a9125117" />
+
+
+### Considerações Finais
+Ao longo do desenvolvimento deste projeto, tivemos a oportunidade de aprofundar nossos conhecimentos práticos nas tecnologias estudadas em sala de aula, especialmente o Spark (via Databricks) e o banco de dados orientado a grafos Neo4j. A aplicação prática dessas ferramentas nos permitiu compreender de forma mais concreta as diferenças entre bancos relacionais e bancos de grafos, principalmente com a parte de modelagem e desempenho das consultas.
+
+As principais dificuldades surgiram nas etapas de transformação e carga dos dados. Durante a transformação, enfrentamos o desafio de padronizar colunas como sideEffects e uses, que possuíam estruturas distintas nos diferentes dois *datasets*. Já na etapa de carga, o principal obstáculo foi o grande volume de dados: um dos relacionamentos possuía quase 1,5 milhão de arestas, o que tornou o processo de inserção extremamente demorado onde 10 mil tuplas demorava cerca de 20 minutos para ser inserida no Neo4j. Por conta disso, não onseguimos inserir todos os dados dentro do tempo disponível.
+
+Apesar dessas dificuldades, o trabalho foi essencial para consolidar o entendimento das tecnologias utilizadas. E pudemos ver na prática, a eficiência do Neo4j em consultas baseadas em relacionamentos: uma consulta envolvendo aproximadamente 900 mil arestas — que exigiria até quatro joins em um banco relacional e resultaria em alto custo computacional — foi executada no Neo4j em apenas 31 milissegundos.
+
+Em resumo, a experiência proporcionada por este projeto foi valiosa tanto do ponto de vista técnico quanto prático, contribuindo significativamente para o nosso aprendizado em processamento massivo de dados e modelagem em bancos orientados a grafos.
+
+
