@@ -142,7 +142,21 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 
 - **Criar os nós no Neo4j**: Criamos os nós no Neo4j a partir dos *dataframes* criados no terceiro item desta seção.
 
-- **Criação das arestas**: Com os nós criados, fizemos uma manipulação dos nossos *dataframes* para obter os *ids* dos nós de origem e destino da nossa arestas, e assim criarmos as arestas `DEVELOPS`, `HAS_SIDE_EFFECT` e `TREATS`.  
+- **Criação das arestas**: Com os nós criados, fizemos uma manipulação dos nossos *dataframes* para obter os *ids* dos nós de origem e destino da nossa arestas, e assim criarmos as arestas `DEVELOPS`, `HAS_SIDE_EFFECT` e `TREATS`.
+
+### Estatísticas do Banco de Dados
+Após a etapa de carga dos dados para o Neo4j, temos a seguinte quantidade de nós e arestas:
+
+Nós
+- `Drug`: 223152 nós
+- `Condition`: 1195 nós
+- `sideEffect`: 1190 nós
+- `Manufacturer`: 759 nós
+
+Arestas
+- `DEVELOPS`: 11498 arestas
+- `HAS_SIDE_EFFECT`: 909996 arestas
+- `TREATS`: 328037 arestas
 
 ### Consultas realizadas
 Após a etapa de carga dos dados para o Neo4j, pudemos realizar as consultas definidas na Seção Objetivos deste arquivo. A seguir, temos os *scripts* das consultas em Cypher que correspondem as consultas definidas anteriormente.
