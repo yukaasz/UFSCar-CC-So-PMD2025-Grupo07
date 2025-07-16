@@ -10,7 +10,7 @@ Integrantes:
 
 ### Resumo e Introdução:
 
-  O seguinte projeto será desenvolvido pelos membro Daniella e Renan, e tem como finalidade aplicar conceitos aprendidos durante as aulas de Processamento Massivos de Dados, tais como Apache Spark, Python, Manipulação e Transformação de Dados, Relacionamentos e Consultas em um Banco de Dados orientado a Grafos (Neo4j).
+  O seguinte projeto será desenvolvido pelos membro Daniella e Renan, e tem como finalidade aplicar conceitos aprendidos durante as aulas de Processamento Massivos de Dados, tais como Apache Spark, Python, Manipulação e Transformação de Dados, Relacionamentos e Consultas em um Banco de Dados Orientado a Grafos (Neo4j).
 Para isso, a dupla escolheu trabalhar o projeto sobre dois *datasets* de medicamentos, aplicando os conhecimentos acima referidos.
 Nos tópicos a seguir, elaboramos mais detalhes do trabalho em questão.
 
@@ -23,13 +23,13 @@ Diante desse cenário, torna-se interessante e necessário oferecer ao público 
 ### Fonte de Dados:
   Os dados do projeto são provenientes de dois arquivos csv, disponibilizados nos seguintes *links*:
 
-- dataset1: https://www.kaggle.com/datasets/singhnavjot2062001/11000-medicine-details?select=Medicine_Details.csv
+- *dataset1*: https://www.kaggle.com/datasets/singhnavjot2062001/11000-medicine-details?select=Medicine_Details.csv
   
-- dataset2: https://www.kaggle.com/datasets/shudhanshusingh/250k-medicines-usage-side-effects-and-substitutes
+- *dataset2*: https://www.kaggle.com/datasets/shudhanshusingh/250k-medicines-usage-side-effects-and-substitutes
 
-Embora os dois datasets possuam atributos diversos, o projeto em questão não fará uso de todos eles. Logo, a dupla aplicará uma etapa de transformação utilizando o Spark para sintetizar e adaptar os dados em apenas um *dataset* com quatro atributos, sendo eles `drugName`, `manufacturer`, `sideEffects` e `conditions` (este último seria o sintoma/doença/infecção que o remédio tratará).
+Embora os dois *datasets* possuam atributos diversos, o projeto em questão não fará uso de todos eles. Logo, a dupla aplicará uma etapa de transformação utilizando o Spark para sintetizar e adaptar os dados em apenas um *dataset* com quatro atributos, sendo eles `drugName`, `manufacturer`, `sideEffects` e `conditions` (este último seria o sintoma/doença/infecção que o remédio tratará).
 
-OBS: no dataset2, o campo `manufacturer` (fabricante) não está presente. 
+**OBS**: no *dataset2*, o campo `manufacturer` (fabricante) não está presente. 
 O grupo procurou outras bases de dados que possuíssem os mesmos atributos principais do projeto, mas não obtiveram sucesso. 
 Ainda assim, mesmo que alguns medicamentos fiquem sem essa informação, a dupla considera o fabricante um atributo interessante para análise e, por esse motivo, decidimos manter em nosso projeto.
 
@@ -76,7 +76,7 @@ Neo4j para a carga e as consultas, pois:
 
 ### Ajustes da Etapa Anterior:
 - Remoção dos atributos `price` e `description`:
-    - O motivo dessas remoções se dá por conta da indisponibilidade de datasets com os mesmos atributos para realização de cruzamento.
+    - O motivo dessas remoções se dá por conta da indisponibilidade de *datasets* com os mesmos atributos para realização de cruzamento.
 - Alteração do nome `category` para `condition`, e `belongs_to` para `treats`
 - Adição de um novo *dataset* para complementar o *dataset* inicial e aumentar a complexidade do projeto.
 - Mudança do Fluxograma (Imagem 2) para acompanhar as alterações acima.
@@ -88,7 +88,7 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 
 **1) Upload de dados**: Inicialmente, com os *datasets* em mãos, faremos o *upload* dos mesmos na plataforma Databricks, onde utilizaremos a tecnologia do PySpark(Apache Spark).
 
-**2) Tratamento individual do df1(dataset1)**:
+**2) Tratamento individual do df1(*dataset1*)**:
     
 - **Valores Nulos**: Verificamos se existe alguma tupla com valores nulos em pelo menos um dos campos principais: `Medicine Name` (`drug`), `Uses`(`conditions`) e `sideEffects` (`manufacturer` como dito antes pode conter campos nulos em nosso projeto, por isso não é verificado).  
    
@@ -96,7 +96,7 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 
 - **Remodelar coluna `Uses` com uma lista de usos (as finalidades dos medicamentos)**: Separar a cadeia de caracteres em uma lista que conterá cada uso (finalidade) do medicamento. Isso será útil para passar os dados ao Neo4j posteriormente
 
-- **Remodelar coluna de efeitos colaterais com uma lista de `Side_effects`**: o motivo é o mesmo que o item amterior.
+- **Remodelar coluna de efeitos colaterais com uma lista de `Side_effects`**: o motivo é o mesmo que o item anterior.
 
 **3) Tratamento individual do df2(*dataset2*)**:    
 
@@ -134,7 +134,7 @@ Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execu
 
 - **Atribuição de *IDs***: para realizar a etapa de carga no Neo4j, precisamos atribuir um *ID* para cada nó do nosso banco de dados.
 
-- **Criar *dataframes* separados apenas com *id* e nome de cada nó**: criamos os dataframes `df_drugs`, `df_condition`, `df_sideEffects` e `df_manufacturers` que contém apenas o *id* e nome de cada nó para utilizarmos posteriormente.
+- **Criar *dataframes* separados apenas com *id* e nome de cada nó**: criamos os *dataframes* `df_drugs`, `df_condition`, `df_sideEffects` e `df_manufacturers` que contém apenas o *id* e nome de cada nó para utilizarmos posteriormente.
 
 - **Criação do banco de dados no Neo4j Sandbox**
 
