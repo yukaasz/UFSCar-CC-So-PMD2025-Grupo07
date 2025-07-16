@@ -84,7 +84,7 @@ Neo4j para a carga e as consultas, pois:
 
 ### Desenvolvimento:
 A seguir serão apresentadas as ações tomadas pela dupla para realização do projeto.
-Você pode conferir a execução e detalhamento do mesmo em formato de notebook no arquivo `Databricks_ETL` presente no Github do projeto. 
+Você pode conferir a execução e detalhamento do mesmo em formato de notebook no arquivo `Databricks_ETL` presente no Github do projeto ou disponível no seguinte [link](Databricks_ETL.dbc). 
 Enfatizamos que, faremos um breve resumo abaixo de como o grupo planejou a execução, para mais detalhes acesse o arquivo disponibilizado, por gentileza.
 
 **1) Upload de dados**: Inicialmente, com os *datasets* em mãos, faremos o *upload* dos mesmos na plataforma Databricks, onde utilizaremos a tecnologia do PySpark(Apache Spark).
