@@ -75,6 +75,8 @@ Neo4j para a carga e as consultas, pois:
 - É mais eficiente navegar entre relacionamentos em um modelo em grafos do que em bancos de dados relacionais.
 - Possui estrutura de dados flexível que permite a adição de novos nós como modo de consumo ou principal composto ativo, por exemplo, sem a necessidade de reestruturar todo o banco de dados.
 
+## Fase Final - Execução do Projeto 
+
 ### Ajustes da Etapa Anterior:
 - Remoção dos atributos `price` e `description`:
     - O motivo dessas remoções se dá por conta da indisponibilidade de *datasets* com os mesmos atributos para realização de cruzamento.
