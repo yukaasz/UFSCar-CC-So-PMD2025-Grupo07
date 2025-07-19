@@ -1,8 +1,11 @@
-# UFSCar-CC-So-PMD2025-Grupo07
-
-### Tema: Aplicação de recomendação de medicamentos
-
-Integrantes:
+# Projeto de Disciplina – Aplicação de recomendação de medicamentos  
+Universidade Federal de São Carlos  
+Curso: Bacharelado em Ciência da Computação de Sorocaba  
+Disciplina: Processamento Massivo de Dados  
+Professora: Profa. Dra. Sahudy Montenegro González  
+ 
+## Grupo 07
+### Integrantes:
 - Daniella Yuka Hirosue - 813008
 - Renan Yugo Ueda - 813346
 
