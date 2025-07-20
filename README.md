@@ -9,6 +9,8 @@ Professora: Profa. Dra. Sahudy Montenegro González
 - Daniella Yuka Hirosue - 813008
 - Renan Yugo Ueda - 813346
 
+## OBS: Não foi possível baixar o modelo Notebook Python do DataBricks, o site vetou essa opção por conta de tamanho de arquivo
+
 ## Fase Intermediária – Planejamento: Definição da proposta
 
 ### Resumo e Introdução:
